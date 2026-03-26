@@ -13,7 +13,11 @@ interface Vaga {
 }
 
 function App() {
-  const [vagas, setVagas] = useState<Vaga[]>([]);
+  const [vagas, setVagas] = useState<Vaga[]>(() => {
+    // Tenta carregar do cache (localStorage) ao iniciar
+    const saved = localStorage.getItem('vagas_cache');
+    return saved ? JSON.parse(saved) : [];
+  });
   const [loading, setLoading] = useState(false);
   const [filtroArea, setFiltroArea] = useState<string | null>(null);
   const [filtroRegiao, setFiltroRegiao] = useState<string | null>(null);
@@ -23,12 +27,14 @@ function App() {
   const API_URL = "http://localhost:8000";
 
   const fetchVagas = async (area: string | null = null) => {
-    setLoading(true);
+    setLoading(vagas.length === 0); // Só mostra loading se o cache estiver vazio
     try {
       const url = area ? `${API_URL}/vagas?area=${area}` : `${API_URL}/vagas`;
       const response = await fetch(url);
       const data = await response.json();
       setVagas(data);
+      // Atualiza o cache no navegador
+      localStorage.setItem('vagas_cache', JSON.stringify(data));
     } catch (error) {
       console.error("Erro ao buscar vagas:", error);
     } finally {
