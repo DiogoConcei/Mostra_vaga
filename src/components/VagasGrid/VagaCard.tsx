@@ -11,7 +11,8 @@ interface VagaCardProps {
 export function VagaCard({ vaga, onUpdateStatus, abaAtiva, activeResumeKeywords }: VagaCardProps) {
   const [showFullDesc, setShowFullDesc] = useState(false);
   const [showATSModal, setShowATSModal] = useState(false);
-  const isRJ = vaga.localizacao.toLowerCase().includes("rio") || vaga.localizacao.toLowerCase().includes("rj");
+  const local = (vaga.localizacao || "").toLowerCase();
+  const isRJ = local.includes("rio") || local.includes("rj");
   
   // Extrai highlights e insight do texto da IA
   const [rawHighlights, insight] = vaga.insights ? vaga.insights.split('|').map(s => s.trim()) : ["", ""];
@@ -60,7 +61,7 @@ export function VagaCard({ vaga, onUpdateStatus, abaAtiva, activeResumeKeywords 
              </div>
           )}
         </div>
-        <span className={`status-badge status-${vaga.status.toLowerCase()}`}>
+        <span className={`status-badge status-${(vaga.status || 'novo').toLowerCase()}`}>
           {vaga.status === "Novo" && "✨ Novo"}
           {vaga.status === "Candidatado" && "🎯 Aplicado"}
           {vaga.status === "Rejeitado" && "❌ Recusado"}
@@ -75,12 +76,14 @@ export function VagaCard({ vaga, onUpdateStatus, abaAtiva, activeResumeKeywords 
           <p className={`local ${isRJ ? 'highlight' : ''}`}>
             📍 {vaga.localizacao} {isRJ && "🔥"}
           </p>
-          <span className={`modality-tag ${vaga.modalidade.toLowerCase()}`}>
-            {vaga.modalidade === "Remoto" && "🌍 "}
-            {vaga.modalidade === "Híbrido" && "🌗 "}
-            {vaga.modalidade === "Presencial" && "🏢 "}
-            {vaga.modalidade}
-          </span>
+          {vaga.modalidade && (
+            <span className={`modality-tag ${(vaga.modalidade || 'presencial').toLowerCase()}`}>
+              {vaga.modalidade === "Remoto" && "🌍 "}
+              {vaga.modalidade === "Híbrido" && "🌗 "}
+              {vaga.modalidade === "Presencial" && "🏢 "}
+              {vaga.modalidade}
+            </span>
+          )}
         </div>
       </div>
 
