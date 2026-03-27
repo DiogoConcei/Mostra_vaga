@@ -71,9 +71,17 @@ export function VagaCard({ vaga, onUpdateStatus, abaAtiva, activeResumeKeywords 
       
       <div className="vaga-details">
         <p className="empresa">🏢 {vaga.empresa}</p>
-        <p className={`local ${isRJ ? 'highlight' : ''}`}>
-          📍 {vaga.localizacao} {isRJ && "🔥"}
-        </p>
+        <div className="location-group">
+          <p className={`local ${isRJ ? 'highlight' : ''}`}>
+            📍 {vaga.localizacao} {isRJ && "🔥"}
+          </p>
+          <span className={`modality-tag ${vaga.modalidade.toLowerCase()}`}>
+            {vaga.modalidade === "Remoto" && "🌍 "}
+            {vaga.modalidade === "Híbrido" && "🌗 "}
+            {vaga.modalidade === "Presencial" && "🏢 "}
+            {vaga.modalidade}
+          </span>
+        </div>
       </div>
 
       {(insight || profileTag) && (

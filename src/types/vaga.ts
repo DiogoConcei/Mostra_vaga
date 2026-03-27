@@ -4,6 +4,7 @@ export interface Vaga {
   empresa: string;
   link: string;
   localizacao: string;
+  modalidade: string;
   area: string;
   data_postagem: string;
   status: 'Novo' | 'Candidatado' | 'Rejeitado';
