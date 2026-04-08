@@ -57,9 +57,11 @@ export function useVagaFilters(vagas: Vaga[]) {
 
       // Region filter
       if (filtroRegiao) {
-        const loc = vaga.localizacao.toLowerCase();
-        const isRJ = loc.includes("rio") || loc.includes("rj");
-        const isRemoto = loc.includes("remoto");
+        const loc = vaga.localizacao?.toLowerCase() || "";
+        const mod = vaga.modalidade?.toLowerCase() || "";
+        
+        const isRJ = loc.includes("rio") || loc.includes("rj") || loc.includes("niterói") || loc.includes("caxias");
+        const isRemoto = loc.includes("remoto") || mod.includes("remoto");
 
         if (filtroRegiao === "Rio de Janeiro" && !isRJ) return false;
         if (filtroRegiao === "Remoto" && !isRemoto) return false;

@@ -8,7 +8,11 @@ import { VagasGrid } from './components/VagasGrid';
 import { ProfileView } from './components/ProfileView';
 
 function App() {
-  const { vagas, loading, refreshVagas, updateStatus, clearCache } = useVagas();
+  const { 
+    vagas, loading, isScraping, sortOrder, 
+    changeSortOrder, refreshVagas, updateStatus, clearCache 
+  } = useVagas();
+  
   const { activeResumeKeywords } = useResumes();
   
   const {
@@ -37,14 +41,15 @@ function App() {
             filtroArea={filtroArea} setFiltroArea={setFiltroArea}
             filtroRegiao={filtroRegiao} setFiltroRegiao={setFiltroRegiao}
             mostrarRejeitadas={mostrarRejeitadas} setMostrarRejeitadas={setMostrarRejeitadas}
-            loading={loading}
+            loading={loading || isScraping}
+            isScraping={isScraping}
+            sortOrder={sortOrder}
+            onSortChange={changeSortOrder}
             onRefresh={refreshVagas}
             onClearCache={clearCache}
           />
-
           <VagasGrid 
             vagas={filteredVagas} 
-            loading={loading} 
             abaAtiva={abaAtiva} 
             onUpdateStatus={updateStatus}
             activeResumeKeywords={activeResumeKeywords}

@@ -1,4 +1,4 @@
-export const AREAS = ["Dados", "Front-end", "Back-end", "Full-stack"] as const;
+export const AREAS = ["Python", "React", "Desenvolvimento", "Dados", "Comunidade"] as const;
 export const REGIOES = ["Rio de Janeiro", "Remoto", "Outros"] as const;
 
 export type Area = (typeof AREAS)[number];
