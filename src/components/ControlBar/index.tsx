@@ -15,6 +15,7 @@ interface ControlBarProps {
   sortOrder: SortOrder;
   onSortChange: (order: SortOrder) => void;
   onRefresh: () => void;
+  onReanalyze: () => void;
   onClearCache: () => void;
 }
 
@@ -23,7 +24,7 @@ export function ControlBar({
   filtroArea, setFiltroArea,
   filtroRegiao, setFiltroRegiao,
   mostrarRejeitadas, setMostrarRejeitadas,
-  loading, isScraping, sortOrder, onSortChange, onRefresh, onClearCache
+  loading, isScraping, sortOrder, onSortChange, onRefresh, onReanalyze, onClearCache
 }: ControlBarProps) {
   return (
     <div className="control-bar">
@@ -103,9 +104,20 @@ export function ControlBar({
           <button onClick={onClearCache} className="clear-cache-btn">🗑️ Limpar Cache</button>
         </div>
         
-        <button onClick={onRefresh} className="refresh-btn" disabled={loading}>
-          {loading ? "⚙️ Sincronizando..." : "🚀 Buscar Novas Vagas"}
-        </button>
+        <div className="right-actions" style={{ display: 'flex', gap: '10px' }}>
+          <button 
+            onClick={onReanalyze} 
+            className="reanalyze-btn" 
+            disabled={loading}
+            title="Recalcular scores de match com base nos currículos ativos"
+          >
+            {loading ? "⌛ Processando..." : "🧠 Reaplicar IA"}
+          </button>
+
+          <button onClick={onRefresh} className="refresh-btn" disabled={loading}>
+            {loading ? "⚙️ Sincronizando..." : "🚀 Buscar Novas Vagas"}
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ import { ProfileView } from './components/ProfileView';
 function App() {
   const { 
     vagas, loading, isScraping, sortOrder, 
-    changeSortOrder, refreshVagas, updateStatus, clearCache 
+    changeSortOrder, refreshVagas, reanalyzeVagas, updateStatus, clearCache 
   } = useVagas();
   
   const { activeResumeKeywords } = useResumes();
@@ -46,6 +46,7 @@ function App() {
             sortOrder={sortOrder}
             onSortChange={changeSortOrder}
             onRefresh={refreshVagas}
+            onReanalyze={reanalyzeVagas}
             onClearCache={clearCache}
           />
           <VagasGrid 

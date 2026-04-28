@@ -88,6 +88,20 @@ export function useVagas() {
     }
   };
 
+  const reanalyzeVagas = async () => {
+    setLoading(true);
+    try {
+      await fetch(`${API_URL}/vagas/reanalisar`, { method: 'POST' });
+      await fetchVagas();
+      alert("IA reaplicada com sucesso!");
+    } catch (error) {
+      console.error("Erro ao reanalisar vagas:", error);
+      alert("Erro ao reanalisar vagas.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const updateStatus = async (id: number, status: string) => {
     try {
       await fetch(`${API_URL}/vagas/${id}/status?status=${status}`, { method: 'PATCH' });
@@ -114,6 +128,7 @@ export function useVagas() {
     sortOrder,
     changeSortOrder,
     refreshVagas, 
+    reanalyzeVagas,
     updateStatus, 
     clearCache 
   };

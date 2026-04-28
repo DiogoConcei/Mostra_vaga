@@ -277,14 +277,44 @@ header p {
   box-shadow: 0 4px 10px rgba(153, 102, 204, 0.2);
 }
 
-.refresh-btn:hover { 
-  background: var(--primary-hover); 
+.refresh-btn:hover {
+  background: var(--primary-hover);
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(153, 102, 204, 0.3);
 }
 
-.scraping-indicator {
+.reanalyze-btn {
+  background: rgba(153, 102, 204, 0.1);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  cursor: pointer;
   display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.reanalyze-btn:hover:not(:disabled) {
+  background: var(--primary);
+  color: white;
+}
+
+.reanalyze-btn:active:not(:disabled) {
+  opacity: 0.8;
+}
+
+.reanalyze-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: var(--border-color);
+  color: var(--text-muted);
+  background: transparent;
+}
+
+.scraping-indicator {  display: flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
